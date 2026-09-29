@@ -12,6 +12,7 @@ class Receipt:
     date: str                   # ISO YYYY-MM-DD, "" if none found
     total: Decimal | None       # the receipt's TOTAL in its own currency; None if none found
     currency: str               # "GBP", or the code/symbol found; "" if unknown
+    notes: str = ""             # parse's warnings, e.g. OCR noise (change-request #22)
 
 
 @dataclass(frozen=True)
