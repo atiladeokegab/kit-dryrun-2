@@ -33,6 +33,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(prog="expenses", description=__doc__)
     ap.add_argument("folder")
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--version", action="version", version="expenses 0.1")
     a = ap.parse_args(argv)
     folder = Path(a.folder)
     if not folder.is_dir():
