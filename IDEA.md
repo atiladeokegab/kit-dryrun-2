@@ -17,7 +17,7 @@ subtotals and a grand total in pounds. Receipts in another currency are listed a
 
 ## What we build
 
-- Parse a messy receipt: merchant, date, total (the TOTAL, not VAT or subtotal lines)
+- Parse a messy receipt: merchant, date, total (the TOTAL, not VAT or subtotal lines; also "Total charged")
 - Category by merchant keywords (food, travel, office, other)
 - `python3 -m expenses FOLDER` prints a table and the grand total; `--json` prints JSON
 - A sample folder of receipts covering the messy cases
