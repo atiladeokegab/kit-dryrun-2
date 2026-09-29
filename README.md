@@ -224,10 +224,12 @@ Every one of these happened for real while this kit was tested.
 
 ## Architecture
 
-Planned design; the Architecture diagrams issue redraws these from the real code.
+Drawn from the real code by `docs/architecture/c4.py` (`uv run docs/architecture/c4.py`).
 
 ![System context](docs/architecture/c4_context.png)
 
 ![Containers](docs/architecture/c4_container.png)
 
 ![Components of the expenses CLI](docs/architecture/c4_component.png)
+
+![Code](docs/architecture/c4_code.png)
