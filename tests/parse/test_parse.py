@@ -23,6 +23,11 @@ class ParseTest(unittest.TestCase):
                 self.assertEqual(receipt.currency, currency)
                 self.assertEqual(receipt.source, "r.txt")
 
+    def test_total_due_with_colon_and_prefix_currency(self):
+        receipt = parse("r.txt", "Cafe\nTotal due: GBP 4.20")
+        self.assertEqual(receipt.total, Decimal("4.20"))
+        self.assertEqual(receipt.currency, "GBP")
+
     def test_last_total_like_line_wins(self):
         text = "Cafe\nSubtotal £9.00\nVAT £1.80\nTOTAL £10.80\nTotal due £11.00\nAMOUNT PAID £11.50"
         self.assertEqual(parse("r.txt", text).total, Decimal("11.50"))
