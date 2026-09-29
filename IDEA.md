@@ -40,7 +40,7 @@ contracts; only the lead changes it.
 | Area | Directories | Owner | Issues |
 |---|---|---|---|
 | core | `expenses/__init__.py`, `expenses/__main__.py`, `expenses/model.py`, `tests/__init__.py`, `tests/test_cli.py` | @atiladeokegab (Zeus builds) | #1 |
-| parse | `expenses/parse/`, `tests/parse/` | @Atilmatrix | #2 |
+| parse | `expenses/parse/`, `tests/parse/` | @Atilmatrix | #2, #17 |
 | totals | `expenses/totals/`, `tests/totals/` | @atiladeokegab (Zeus builds) | #3 |
 | pool (claimed) | `samples/` | @Atilmatrix | #4 |
 | demo | `docs/demo.md` | @atiladeokegab (Zeus builds) | #5 |
