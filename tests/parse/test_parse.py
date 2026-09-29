@@ -27,6 +27,10 @@ class ParseTest(unittest.TestCase):
         text = "Cafe\nSubtotal £9.00\nVAT £1.80\nTOTAL £10.80\nTotal due £11.00\nAMOUNT PAID £11.50"
         self.assertEqual(parse("r.txt", text).total, Decimal("11.50"))
 
+    def test_total_items_is_not_a_money_total(self):
+        text = "Cafe\nTOTAL £12.50\nTOTAL ITEMS 2"
+        self.assertEqual(parse("r.txt", text).total, Decimal("12.50"))
+
     def test_subtotal_and_vat_do_not_replace_total(self):
         text = "Cafe\nTOTAL £10.80\nVAT £1.80\nSubtotal £9.00"
         self.assertEqual(parse("r.txt", text).total, Decimal("10.80"))
@@ -48,8 +52,16 @@ class ParseTest(unittest.TestCase):
         text = "  \n12/09/2026\n12 High Street\n£7.00\n  Blue Cafe  \nTOTAL £7.00"
         self.assertEqual(parse("r.txt", text).merchant, "Blue Cafe")
 
+    def test_merchant_skips_numbered_street_range(self):
+        text = "12-14 High Street\nBlue Cafe\nTOTAL £5.00"
+        self.assertEqual(parse("r.txt", text).merchant, "Blue Cafe")
+
     def test_merchant_skips_ocr_noise_and_receipt_header(self):
         text = "### 8? ###\nRECEIPT\nCorner Cafe\nTotal due £4.20"
+        self.assertEqual(parse("r.txt", text).merchant, "Corner Cafe")
+
+    def test_merchant_skips_lettered_ocr_noise(self):
+        text = "### OCR NOISE ###\nCorner Cafe\nTOTAL £4.20"
         self.assertEqual(parse("r.txt", text).merchant, "Corner Cafe")
 
     def test_missing_merchant_is_empty(self):
