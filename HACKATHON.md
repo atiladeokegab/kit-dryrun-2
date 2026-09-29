@@ -1,14 +1,18 @@
-# <Event name>
+# Tiny Hack 2 (kit dry run #2)
 
-<One-paragraph brief: what we're building and for which track.>
+Build a small command-line tool that turns a folder of messy receipt text dumps into an
+expense summary. One track. This is a rehearsal event: brief, data and deadlines are fake.
 
-Official rules: <link>
+Official rules: none (rehearsal). The idea and the areas: [IDEA.md](IDEA.md).
 
-Smoke: `<the one command that proves the product works: tests plus one end-to-end run>`
+Smoke: `python3 -m unittest discover -s tests -t .`
+
+(Once the parse and totals areas and `samples/` have landed, the smoke becomes
+`python3 -m unittest discover -s tests -t . && python3 -m expenses samples/`.)
 
 The product that ships is `main`: the last commit that passed the smoke check.
 
-Board: <link to the event's GitHub Project board>
+Board: https://github.com/users/atiladeokegab/projects/4
 
 ## Deadlines
 
@@ -17,18 +21,23 @@ date, so this UTC column is the clock, never the milestone.
 
 | Deadline | Event time | UTC |
 |---|---|---|
-| code freeze | <YYYY-MM-DDTHH:MM±HH:MM> | <YYYY-MM-DDTHH:MMZ> |
-| submit | <YYYY-MM-DDTHH:MM±HH:MM> | <YYYY-MM-DDTHH:MMZ> |
+| build start | 2026-09-29T12:04+01:00 | 2026-09-29T11:04Z |
+| code freeze | 2026-09-29T13:04+01:00 | 2026-09-29T12:04Z |
+| reality test | 2026-09-29T13:14+01:00 | 2026-09-29T12:14Z |
+| submit | 2026-09-29T13:29+01:00 | 2026-09-29T12:29Z |
 
 ## Judging criteria
 
-- <criterion>: <weight>
+- Correct totals: 50%
+- Handles messy input: 30%
+- Engineering: 20%
 
 ## Team
 
 | Name | GitHub | Role |
 |---|---|---|
-| <name> | @<handle> | <role> |
+| Atilade | @atiladeokegab | Lead; owns core and totals; reviews and merges |
+| Matrix | @Atilmatrix | Parse area |
 
-The lead's agents: <e.g. "Zeus plans, reviews and merges; Prometheus builds">. When this page
-or a review says "the lead", it may be one of them acting for the lead.
+The lead's agents: Zeus plans, reviews, merges and builds the lead's tasks. When this page
+or a review says "the lead", it may be Zeus acting for the lead.

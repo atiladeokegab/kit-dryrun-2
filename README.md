@@ -1,13 +1,13 @@
-# <Project name>
+# expenses
 
-<One paragraph: what we're building and who it's for.>
+A command-line tool that reads a folder of messy receipt text dumps (OCR noise, `£12.50` or `12,50 GBP`, VAT lines that look like totals) and prints what was spent per category and in total, in pounds. Receipts in other currencies are listed, not counted. Python standard library only.
 
 What we're building and who owns which part: [IDEA.md](IDEA.md). Deadlines, rules and
 the team: [HACKATHON.md](HACKATHON.md). Who is doing what, live: the board linked in HACKATHON.md.
 
 ## Quick start
 
-1. `gh repo clone <this repo>`
+1. `gh repo clone atiladeokegab/kit-dryrun-2`
 2. Open your AI tool (Claude Code, Codex, Cursor, Copilot…) in the folder.
 3. Tell it: *"Read AGENTS.md, then pick up my issue."*
 
@@ -224,4 +224,10 @@ Every one of these happened for real while this kit was tested.
 
 ## Architecture
 
-<!-- the lead adds the C4 diagrams here -->
+Planned design; the Architecture diagrams issue redraws these from the real code.
+
+![System context](docs/architecture/c4_context.png)
+
+![Containers](docs/architecture/c4_container.png)
+
+![Components of the expenses CLI](docs/architecture/c4_component.png)
