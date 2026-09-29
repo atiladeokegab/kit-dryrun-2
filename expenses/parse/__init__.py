@@ -5,7 +5,7 @@ from decimal import Decimal
 
 from expenses.model import Receipt
 
-_TOTAL = re.compile(r"^\s*(?:total(?:\s+due)?|amount\s+paid)\b\s*:?\s*(?=(?:[£€$]|\b(?:GBP|EUR|USD)\b|\d))", re.I)
+_TOTAL = re.compile(r"^\s*(?:total(?:\s+(?:due|charged))?|amount\s+(?:paid|charged))\b\s*:?\s*(?=(?:[£€$]|\b(?:GBP|EUR|USD)\b|\d))", re.I)
 _AMOUNT = re.compile(r"\d{1,3}(?:,\d{3})+(?:\.\d{2})?|\d+(?:[.,]\d{2})?")
 _CURRENCY = re.compile(r"\b(?:GBP|EUR|USD)\b|[£€$]", re.I)
 _DATES = (
