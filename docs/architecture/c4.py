@@ -78,7 +78,7 @@ def code():
         with Cluster("expenses/"):
             main = Python("__main__.py\n——\n+ main(argv) → int\n+ render_table(Summary)\n+ render_json(Summary)")
             model = Python("model.py\n——\nReceipt(source, merchant,\n  date, total, currency)\nSummary(by_category,\n  grand_total, not_counted)")
-            parse = Python("parse/__init__.py\n——\n+ parse(source, text)\n  → Receipt")
+            parse = Python("parse/__init__.py\n——\n+ parse(\n  source, text)\n  → Receipt")
             totals = Python("totals/__init__.py\n——\n+ category(\\n  merchant) → str\n+ summarise(receipts)\n  → Summary")
         main >> Edge(label="parse") >> parse
         main >> Edge(label="summarise") >> totals
