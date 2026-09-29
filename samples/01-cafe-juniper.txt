@@ -1,0 +1,8 @@
+### OCR scan ###
+12-14 Willow Street
+Cafe Juniper
+Date: 2026-09-12
+Latte and toast £10.42
+Subtotal £10.42
+VAT £2.08
+TOTAL £12.50
