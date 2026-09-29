@@ -28,6 +28,31 @@ class ParseTest(unittest.TestCase):
         self.assertEqual(receipt.total, Decimal("4.20"))
         self.assertEqual(receipt.currency, "GBP")
 
+    def test_total_charged_from_tfl_statement(self):
+        text = "TfL Contactless\nJourney history 13 Sep 2026\nTotal charged: GBP 7.60"
+        receipt = parse("b-tfl.txt", text)
+        self.assertEqual(receipt.total, Decimal("7.60"))
+        self.assertEqual(receipt.currency, "GBP")
+        self.assertEqual(receipt.date, "2026-09-13")
+
+    def test_amount_charged_is_last_total(self):
+        text = "Shop\nTOTAL GBP 1.00\nAmount charged: GBP 2.00"
+        self.assertEqual(parse("r.txt", text).total, Decimal("2.00"))
+
+    def test_total_paid_label(self):
+        receipt = parse("r.txt", "Shop\nTotal paid: GBP 3.40")
+        self.assertEqual(receipt.total, Decimal("3.40"))
+        self.assertEqual(receipt.currency, "GBP")
+
+    def test_ocr_noise_sets_notes(self):
+        text = "### OCR NOISE ###\nPine Coffee\nC0FFEE 8.33\nTOTAL £9.99"
+        receipt = parse("r.txt", text)
+        self.assertEqual(receipt.merchant, "Pine Coffee")
+        self.assertEqual(receipt.notes, "OCR noise on 2 lines")
+
+    def test_clean_receipt_has_empty_notes(self):
+        self.assertEqual(parse("r.txt", "Cafe\nTOTAL £1.00").notes, "")
+
     def test_last_total_like_line_wins(self):
         text = "Cafe\nSubtotal £9.00\nVAT £1.80\nTOTAL £10.80\nTotal due £11.00\nAMOUNT PAID £11.50"
         self.assertEqual(parse("r.txt", text).total, Decimal("11.50"))

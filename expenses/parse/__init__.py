@@ -5,7 +5,7 @@ from decimal import Decimal
 
 from expenses.model import Receipt
 
-_TOTAL = re.compile(r"^\s*(?:total(?:\s+due)?|amount\s+paid)\b\s*:?\s*(?=(?:[£€$]|\b(?:GBP|EUR|USD)\b|\d))", re.I)
+_TOTAL = re.compile(r"^\s*(?:total(?:\s+(?:due|charged|paid))?|amount\s+(?:paid|charged))\b\s*:?\s*(?=(?:[£€$]|\b(?:GBP|EUR|USD)\b|\d))", re.I)
 _AMOUNT = re.compile(r"\d{1,3}(?:,\d{3})+(?:\.\d{2})?|\d+(?:[.,]\d{2})?")
 _CURRENCY = re.compile(r"\b(?:GBP|EUR|USD)\b|[£€$]", re.I)
 _DATES = (
@@ -14,6 +14,8 @@ _DATES = (
     (re.compile(r"\b\d{1,2} [A-Za-z]{3,9} \d{4}\b", re.I), "%d %b %Y"),
 )
 _AMOUNT_LINE = re.compile(r"^(?:[£€$]|(?:GBP|EUR|USD)\s*)?\d[\d,]*(?:[.,]\d{2})?\s*(?:GBP|EUR|USD)?$", re.I)
+# ponytail: Flag obvious OCR artifacts; broaden only for confirmed receipt formats.
+_OCR_NOISE = re.compile(r"^[#*~|?]{2,}|\b[A-Za-z]+\d+[A-Za-z]+\b")
 
 
 def _date(line: str) -> str:
@@ -61,7 +63,9 @@ def parse(source: str, text: str) -> Receipt:
         if (_date(clean) or clean.upper() in {"RECEIPT", "TAX INVOICE", "GBP", "EUR", "USD"}
                 or re.match(r"^\d+(?:\s*-\s*\d+)?\s+\w", clean) or _TOTAL.match(clean)
                 or re.match(r"^(?:subtotal|vat|tax)\b", clean, re.I)
-                or _AMOUNT_LINE.fullmatch(clean) or re.match(r"^[#*~|?]{2,}", clean)):
+                or _AMOUNT_LINE.fullmatch(clean) or _OCR_NOISE.search(clean)):
             continue
         merchant = clean
-    return Receipt(source, merchant, date, total, currency)
+    noise_lines = sum(bool(_OCR_NOISE.search(line.strip())) for line in lines)
+    notes = f"OCR noise on {noise_lines} line{'s' if noise_lines != 1 else ''}" if noise_lines else ""
+    return Receipt(source, merchant, date, total, currency, notes)
