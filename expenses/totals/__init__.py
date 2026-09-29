@@ -4,7 +4,7 @@ from decimal import Decimal
 from expenses.model import CATEGORIES, Summary
 
 KEYWORDS = {
-    "food": ("cafe", "coffee", "pret", "tesco", "sainsbury", "restaurant"),
+    "food": ("cafe", "coffee", "espresso", "grind", "bean", "bakery", "pret", "tesco", "sainsbury", "restaurant"),
     "travel": ("trainline", "tfl", "uber", "rail", "taxi"),
     "office": ("staples", "ryman", "printer", "paper"),
 }

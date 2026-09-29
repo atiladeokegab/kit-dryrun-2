@@ -12,7 +12,7 @@ def r(merchant, total, currency="GBP", source="x.txt"):
 class TotalsTest(unittest.TestCase):
     def test_each_category_and_case(self):
         for merchant, want in [("Pret A Manger", "food"), ("COFFEE HOUSE", "food"), ("Trainline", "travel"),
-                               ("ryman", "office"), ("Hardware Ltd", "other")]:
+                               ("ryman", "office"), ("Hardware Ltd", "other"), ("THE DAILY GRIND", "food")]:
             with self.subTest(merchant=merchant):
                 self.assertEqual(category(merchant), want)
 
