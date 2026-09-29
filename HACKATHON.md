@@ -5,10 +5,7 @@ expense summary. One track. This is a rehearsal event: brief, data and deadlines
 
 Official rules: none (rehearsal). The idea and the areas: [IDEA.md](IDEA.md).
 
-Smoke: `python3 -m unittest discover -s tests -t .`
-
-(Once the parse and totals areas and `samples/` have landed, the smoke becomes
-`python3 -m unittest discover -s tests -t . && python3 -m expenses samples/`.)
+Smoke: `python3 -m unittest discover -s tests -t . && python3 -m expenses samples/`
 
 The product that ships is `main`: the last commit that passed the smoke check.
 
