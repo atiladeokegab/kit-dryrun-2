@@ -35,6 +35,27 @@ class ParseTest(unittest.TestCase):
         receipt = parse("r.txt", "Cafe\nSubtotal £9.00\nVAT £1.80")
         self.assertIsNone(receipt.total)
 
+    def test_date_formats_become_iso(self):
+        for date in ("2026-09-12", "12/09/2026", "12 Sep 2026"):
+            with self.subTest(date=date):
+                self.assertEqual(parse("r.txt", f"Cafe\n{date}\nTOTAL £5.00").date, "2026-09-12")
+
+    def test_missing_or_invalid_date_is_empty(self):
+        self.assertEqual(parse("r.txt", "Cafe\nTOTAL £5.00").date, "")
+        self.assertEqual(parse("r.txt", "Cafe\n31/02/2026\nTOTAL £5.00").date, "")
+
+    def test_merchant_skips_dates_addresses_and_amounts(self):
+        text = "  \n12/09/2026\n12 High Street\n£7.00\n  Blue Cafe  \nTOTAL £7.00"
+        self.assertEqual(parse("r.txt", text).merchant, "Blue Cafe")
+
+    def test_merchant_skips_ocr_noise_and_receipt_header(self):
+        text = "### 8? ###\nRECEIPT\nCorner Cafe\nTotal due £4.20"
+        self.assertEqual(parse("r.txt", text).merchant, "Corner Cafe")
+
+    def test_missing_merchant_is_empty(self):
+        text = "###\n12/09/2026\n12 High Street\nTOTAL £5.00"
+        self.assertEqual(parse("r.txt", text).merchant, "")
+
 
 if __name__ == "__main__":
     unittest.main()
